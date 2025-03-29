@@ -20,7 +20,7 @@ const Footer = () => {
       date: "June 15, 2023",
       likes: 42,
       liked: false,
-      author: "Dr. Priya Sharma",
+      author: "Tanmay Agarwal",
       excerpt: "Our recent partnership with Tech For Good has enabled us to bring digital tablets to three rural schools."
     },
     {
@@ -29,7 +29,7 @@ const Footer = () => {
       date: "August 7, 2023",
       likes: 38,
       liked: false,
-      author: "Aarav Patel",
+      author: "Tanmay Agarwal",
       excerpt: "After 2 years of running after-school programs, test scores have improved by 32% among participating students."
     }
   ]);
