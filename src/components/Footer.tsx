@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { MapPin, Mail, Phone, Heart } from 'lucide-react';
@@ -9,30 +8,29 @@ type BlogPost = {
   date: string;
   likes: number;
   liked: boolean;
+  author: string;
+  excerpt: string;
 };
 
 const Footer = () => {
   const [blogPosts, setBlogPosts] = useState<BlogPost[]>([
     {
       id: 1,
-      title: "Celebrating Children's Day with Our Students",
-      date: "November 15, 2023",
+      title: "Digital Education Initiative for Rural Schools",
+      date: "June 15, 2023",
       likes: 42,
-      liked: false
+      liked: false,
+      author: "Dr. Priya Sharma",
+      excerpt: "Our recent partnership with Tech For Good has enabled us to bring digital tablets to three rural schools."
     },
     {
       id: 2,
-      title: "New Computer Lab Inauguration at Lakshya",
+      title: "The Impact of Our After-School Programs",
       date: "August 7, 2023",
       likes: 38,
-      liked: false
-    },
-    {
-      id: 3,
-      title: "Annual Results: 95% Pass Rate This Year",
-      date: "April 22, 2023",
-      likes: 27,
-      liked: false
+      liked: false,
+      author: "Aarav Patel",
+      excerpt: "After 2 years of running after-school programs, test scores have improved by 32% among participating students."
     }
   ]);
 
@@ -59,7 +57,8 @@ const Footer = () => {
             <h3 className="text-xl font-bold mb-4 border-b border-lakshya-orange pb-2">About Us</h3>
             <p className="mb-4 text-gray-300">
               Lakshya NGO is dedicated to transforming lives through education. 
-              We focus on providing quality education to underprivileged children in Kota.
+              We focus on providing quality education to underprivileged children in Kota, addressing both 
+              academic needs and holistic development.
             </p>
             <Link to="/about" className="text-lakshya-orange hover:text-lakshya-light-orange transition-colors">
               Learn More →
@@ -75,6 +74,9 @@ const Footer = () => {
                   <a href="#" className="text-gray-300 hover:text-white transition-colors">
                     {post.title}
                   </a>
+                  <div className="mt-1 text-sm text-gray-400">
+                    {post.excerpt}
+                  </div>
                   <div className="flex justify-between items-center mt-1 text-sm">
                     <span className="text-gray-400">{post.date}</span>
                     <button 
@@ -85,7 +87,7 @@ const Footer = () => {
                       <span className="ml-1">{post.likes}</span>
                     </button>
                   </div>
-                  <p className="text-xs text-gray-500 mt-1">by Tanmay Agarwal</p>
+                  <p className="text-xs text-gray-500 mt-1">by {post.author}</p>
                 </li>
               ))}
             </ul>
