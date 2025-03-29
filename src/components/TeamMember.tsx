@@ -33,18 +33,33 @@ const TeamMember: React.FC<TeamMemberProps> = ({ name, designation, quote, image
   const initials = nameParts.length > 1 
     ? `${nameParts[0][0]}${nameParts[nameParts.length - 1][0]}`
     : name.substring(0, 2);
+    
+  // Generate a random pastel background color
+  const colors = [
+    ['from-pink-200 to-pink-300', 'text-pink-800'],
+    ['from-blue-200 to-blue-300', 'text-blue-800'],
+    ['from-green-200 to-green-300', 'text-green-800'],
+    ['from-purple-200 to-purple-300', 'text-purple-800'],
+    ['from-yellow-200 to-yellow-300', 'text-yellow-800'],
+    ['from-indigo-200 to-indigo-300', 'text-indigo-800'],
+    ['from-red-200 to-red-300', 'text-red-800'],
+    ['from-lakshya-light-blue to-lakshya-blue', 'text-white'],
+    ['from-lakshya-light-orange to-lakshya-orange', 'text-white']
+  ];
+  
+  const randomColor = colors[Math.floor(Math.random() * colors.length)];
 
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden transition-transform hover:scale-105 duration-300">
+    <div className="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 hover:shadow-xl transition-all duration-300">
       <div className="p-6">
         {image ? (
           <img 
             src={image} 
             alt={name} 
-            className="w-24 h-24 rounded-full mx-auto mb-4 object-cover"
+            className="w-24 h-24 rounded-full mx-auto mb-4 object-cover border-4 border-gray-200"
           />
         ) : (
-          <div className="w-24 h-24 rounded-full mx-auto mb-4 bg-gradient-to-r from-lakshya-blue to-lakshya-light-blue flex items-center justify-center text-white text-xl font-bold">
+          <div className={`w-24 h-24 rounded-full mx-auto mb-4 bg-gradient-to-r ${randomColor[0]} flex items-center justify-center ${randomColor[1]} text-xl font-bold animate-pulse`}>
             {initials}
           </div>
         )}

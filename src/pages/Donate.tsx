@@ -1,13 +1,20 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Heart } from 'lucide-react';
+import { useToast } from '@/components/ui/use-toast';
 
 // Initial donors
 const initialDonors = [
   { id: 1, name: 'Manorama Gupta', amount: '', date: '2023-08-15' },
   { id: 2, name: 'Rakesh Gupta', amount: '', date: '2023-07-22' },
 ];
+
+declare global {
+  interface Window {
+    Razorpay: any;
+  }
+}
 
 const Donate: React.FC = () => {
   const [donors, setDonors] = useState(initialDonors);
@@ -17,6 +24,22 @@ const Donate: React.FC = () => {
     amount: '',
     message: '',
   });
+  const { toast } = useToast();
+
+  useEffect(() => {
+    // Load Razorpay script
+    const script = document.createElement('script');
+    script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+    script.async = true;
+    document.body.appendChild(script);
+
+    // Scroll to top on page load
+    window.scrollTo(0, 0);
+
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -26,34 +49,76 @@ const Donate: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    // In a real application, this would connect to a payment gateway
-    // For now, we'll simulate a successful donation
-    
-    const newDonor = {
-      id: donors.length + 1,
-      name: formData.name,
-      amount: `₹${formData.amount}`,
-      date: new Date().toISOString().split('T')[0],
+    if (!formData.name || !formData.email || !formData.amount) {
+      toast({
+        title: "Missing information",
+        description: "Please fill in all required fields.",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    // Initialize Razorpay payment
+    const options = {
+      key: 'rzp_test_YourTestKey', // Replace with actual Razorpay test key
+      amount: parseFloat(formData.amount) * 100, // Razorpay amount is in paisa
+      currency: 'INR',
+      name: 'Lakshya NGO',
+      description: 'Donation to support education',
+      image: 'https://i.imgur.com/3g7nmJC.png', // Replace with your logo URL
+      handler: function(response: any) {
+        // Payment successful, add donor to the list
+        const newDonor = {
+          id: donors.length + 1,
+          name: formData.name,
+          amount: `₹${formData.amount}`,
+          date: new Date().toISOString().split('T')[0],
+        };
+        
+        setDonors(prev => [newDonor, ...prev]);
+        
+        // Reset form
+        setFormData({
+          name: '',
+          email: '',
+          amount: '',
+          message: '',
+        });
+        
+        // Show success message
+        toast({
+          title: "Thank you for your donation!",
+          description: `Payment ID: ${response.razorpay_payment_id}`,
+          variant: "default",
+          className: "bg-green-50 border-green-200",
+        });
+      },
+      prefill: {
+        name: formData.name,
+        email: formData.email,
+      },
+      theme: {
+        color: '#F97316',
+      }
     };
-    
-    setDonors(prev => [newDonor, ...prev]);
-    
-    // Reset form
-    setFormData({
-      name: '',
-      email: '',
-      amount: '',
-      message: '',
-    });
-    
-    // Show success message (in a real app, this would be a toast notification)
-    alert('Thank you for your donation!');
+
+    try {
+      const razorpay = new window.Razorpay(options);
+      razorpay.open();
+    } catch (error) {
+      console.error("Razorpay error:", error);
+      toast({
+        title: "Payment Error",
+        description: "There was an error initializing the payment gateway. Please try again later.",
+        variant: "destructive",
+      });
+    }
   };
 
   return (
     <div className="bg-gray-50 min-h-screen">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-r from-lakshya-orange to-red-600 text-white py-24">
+      <section className="relative bg-gradient-to-r from-lakshya-orange to-red-600 text-white py-24 animate-fade-in">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl mx-auto text-center">
             <h1 className="text-4xl font-bold mb-6 font-serif">Better to Give than to Receive</h1>
@@ -74,14 +139,14 @@ const Donate: React.FC = () => {
               Your support is making a real difference in the lives of our students.
             </p>
             
-            <div className="bg-white rounded-lg shadow-md overflow-hidden">
+            <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
               <div className="p-6">
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                   {donors.map((donor) => (
-                    <div key={donor.id} className="bg-gray-50 p-4 rounded-lg">
+                    <div key={donor.id} className="bg-gray-50 p-4 rounded-lg transform hover:scale-105 transition-transform duration-300">
                       <div className="flex items-center">
                         <div className="w-10 h-10 rounded-full bg-lakshya-light-orange flex items-center justify-center text-lakshya-orange">
-                          <Heart size={20} />
+                          <Heart size={20} className="animate-pulse" />
                         </div>
                         <div className="ml-3">
                           <h3 className="font-bold text-gray-800">{donor.name}</h3>
@@ -104,7 +169,7 @@ const Donate: React.FC = () => {
           <div className="max-w-3xl mx-auto">
             <h2 className="text-3xl font-bold mb-8 font-serif text-gray-800 text-center">Make a Donation</h2>
             
-            <div className="bg-gray-50 rounded-lg shadow-md p-6 md:p-8">
+            <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg shadow-md p-6 md:p-8 border border-orange-100">
               <form onSubmit={handleSubmit}>
                 <div className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -119,7 +184,7 @@ const Donate: React.FC = () => {
                         value={formData.name}
                         onChange={handleChange}
                         required
-                        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-lakshya-orange focus:border-lakshya-orange"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-lakshya-orange focus:border-lakshya-orange transition-colors"
                       />
                     </div>
                     
@@ -134,7 +199,7 @@ const Donate: React.FC = () => {
                         value={formData.email}
                         onChange={handleChange}
                         required
-                        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-lakshya-orange focus:border-lakshya-orange"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-lakshya-orange focus:border-lakshya-orange transition-colors"
                       />
                     </div>
                   </div>
@@ -151,7 +216,7 @@ const Donate: React.FC = () => {
                       onChange={handleChange}
                       required
                       min="1"
-                      className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-lakshya-orange focus:border-lakshya-orange"
+                      className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-lakshya-orange focus:border-lakshya-orange transition-colors"
                     />
                   </div>
                   
@@ -165,12 +230,12 @@ const Donate: React.FC = () => {
                       value={formData.message}
                       onChange={handleChange}
                       rows={4}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-lakshya-orange focus:border-lakshya-orange"
+                      className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-lakshya-orange focus:border-lakshya-orange transition-colors"
                     ></textarea>
                   </div>
                   
                   <div className="text-center">
-                    <Button type="submit" className="bg-lakshya-orange hover:bg-orange-600 text-white px-8 py-2">
+                    <Button type="submit" className="bg-lakshya-orange hover:bg-orange-600 text-white px-8 py-2 transform hover:scale-105 transition-all duration-300">
                       Donate Now
                     </Button>
                   </div>
@@ -181,7 +246,7 @@ const Donate: React.FC = () => {
             <div className="mt-8 text-center text-gray-600">
               <p>
                 For other donation methods or for any queries regarding donations, 
-                please contact us at <a href="mailto:lakshyawelfaresoc@gmail.com" className="text-lakshya-blue">lakshyawelfaresoc@gmail.com</a>
+                please contact us at <a href="mailto:lakshyawelfaresoc@gmail.com" className="text-lakshya-blue hover:underline">lakshyawelfaresoc@gmail.com</a>
               </p>
             </div>
           </div>
