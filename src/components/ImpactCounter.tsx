@@ -2,14 +2,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 interface ImpactCounterProps {
-  endValue: number;
+  end: number; // Changed from endValue to end
   duration?: number;
   prefix?: string;
   suffix?: string;
 }
 
 const ImpactCounter: React.FC<ImpactCounterProps> = ({ 
-  endValue, 
+  end, 
   duration = 2000, 
   prefix = '', 
   suffix = '' 
@@ -43,7 +43,7 @@ const ImpactCounter: React.FC<ImpactCounterProps> = ({
       if (!startTime) startTime = timestamp;
       
       const progress = Math.min((timestamp - startTime) / duration, 1);
-      const currentCount = Math.floor(progress * endValue);
+      const currentCount = Math.floor(progress * end);
       
       setCount(currentCount);
       
@@ -53,7 +53,7 @@ const ImpactCounter: React.FC<ImpactCounterProps> = ({
     };
     
     window.requestAnimationFrame(step);
-  }, [endValue, duration, isVisible]);
+  }, [end, duration, isVisible]);
 
   return (
     <div ref={counterRef} className="text-5xl md:text-6xl font-bold text-lakshya-blue transition-all duration-500">

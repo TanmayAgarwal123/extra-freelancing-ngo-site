@@ -24,30 +24,33 @@ const ScrollToTop = () => {
   return null;
 }
 
-const queryClient = new QueryClient();
-
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <BrowserRouter>
-      <div className="flex flex-col min-h-screen">
-        <ScrollToTop />
-        <Navbar />
-        <main className="flex-grow">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/gallery" element={<Gallery />} />
-            <Route path="/donate" element={<Donate />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </main>
-        <Footer />
-      </div>
-      <Toaster />
-      <Sonner />
-    </BrowserRouter>
-  </QueryClientProvider>
-);
+const App = () => {
+  // Move QueryClient initialization inside the component
+  const queryClient = new QueryClient();
+  
+  return (
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <div className="flex flex-col min-h-screen">
+          <ScrollToTop />
+          <Navbar />
+          <main className="flex-grow">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/gallery" element={<Gallery />} />
+              <Route path="/donate" element={<Donate />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </main>
+          <Footer />
+        </div>
+        <Toaster />
+        <Sonner />
+      </BrowserRouter>
+    </QueryClientProvider>
+  );
+};
 
 export default App;
