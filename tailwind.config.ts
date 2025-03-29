@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,6 +62,12 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				lakshya: {
+					blue: '#0EA5E9',
+					'light-blue': '#D3E4FD',
+					orange: '#F97316',
+					'light-orange': '#FEC6A1',
 				}
 			},
 			borderRadius: {
@@ -84,11 +91,69 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'count-up': {
+					'0%': { content: '0' },
+					'2%': { content: '1' },
+					'4%': { content: '2' },
+					'6%': { content: '3' },
+					'8%': { content: '4' },
+					'10%': { content: '5' },
+					'12%': { content: '6' },
+					'14%': { content: '7' },
+					'16%': { content: '8' },
+					'18%': { content: '9' },
+					'20%': { content: '10' },
+					'22%': { content: '11' },
+					'24%': { content: '12' },
+					'26%': { content: '13' },
+					'28%': { content: '14' },
+					'30%': { content: '15' },
+					'32%': { content: '16' },
+					'34%': { content: '17' },
+					'36%': { content: '18' },
+					'38%': { content: '19' },
+					'40%': { content: '20' },
+					'42%': { content: '21' },
+					'44%': { content: '22' },
+					'46%': { content: '23' },
+					'48%': { content: '24' },
+					'50%': { content: '25' },
+					'52%': { content: '26' },
+					'54%': { content: '27' },
+					'56%': { content: '28' },
+					'58%': { content: '29' },
+					'60%': { content: '30' },
+					'62%': { content: '31' },
+					'64%': { content: '32' },
+					'66%': { content: '33' },
+					'68%': { content: '34' },
+					'70%': { content: '35' },
+					'72%': { content: '36' },
+					'74%': { content: '37' },
+					'76%': { content: '38' },
+					'78%': { content: '39' },
+					'80%': { content: '40' },
+					'82%': { content: '41' },
+					'84%': { content: '42' },
+					'86%': { content: '43' },
+					'88%': { content: '44' },
+					'90%': { content: '45' },
+					'92%': { content: '46' },
+					'94%': { content: '47' },
+					'96%': { content: '48' },
+					'98%': { content: '49' },
+					'100%': { content: '50' }
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'count-up': 'count-up 3s forwards'
+			},
+			fontFamily: {
+				'serif': ['Georgia', 'Cambria', 'Times New Roman', 'Times', 'serif'],
+				'sans': ['Inter', 'system-ui', 'Helvetica', 'Arial', 'sans-serif'],
 			}
 		}
 	},
