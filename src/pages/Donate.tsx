@@ -5,10 +5,10 @@ import { Heart, QrCode, X } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogClose } from '@/components/ui/dialog';
 
-// Initial donors
+// Initial donors without amounts
 const initialDonors = [
-  { id: 1, name: 'Manorama Gupta', amount: 'Rs. 5,000', date: '2023-08-15', confirmed: true },
-  { id: 2, name: 'Rakesh Gupta', amount: 'Rs. 2,500', date: '2023-07-22', confirmed: true },
+  { id: 1, name: 'Manorama Gupta', date: '2023-08-15', confirmed: true },
+  { id: 2, name: 'Rakesh Gupta', date: '2023-07-22', confirmed: true },
 ];
 
 declare global {
@@ -74,7 +74,6 @@ const Donate: React.FC = () => {
     const pendingDonation = {
       id: donors.length + 1,
       name: formData.name,
-      amount: `Rs. ${Number(formData.amount).toLocaleString()}`,
       date: new Date().toISOString().split('T')[0],
       confirmed: false, // Needs admin confirmation
     };
@@ -133,7 +132,6 @@ const Donate: React.FC = () => {
                         <div className="ml-3">
                           <h3 className="font-bold text-gray-800">{donor.name}</h3>
                           <p className="text-sm text-gray-500">{donor.date}</p>
-                          {donor.amount && <p className="text-lakshya-orange font-bold">{donor.amount}</p>}
                         </div>
                       </div>
                     </div>

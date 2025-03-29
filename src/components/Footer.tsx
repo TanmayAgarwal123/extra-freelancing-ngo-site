@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { MapPin, Mail, Phone, Heart } from 'lucide-react';
@@ -32,15 +31,6 @@ const Footer = () => {
       liked: false,
       author: "Aarav Patel",
       excerpt: "After 2 years of running after-school programs, test scores have improved by 32% among participating students."
-    },
-    {
-      id: 3,
-      title: "Meeting Basic Needs: Our Nutrition Program",
-      date: "January 22, 2024",
-      likes: 27,
-      liked: false,
-      author: "Tanmay Agarwal",
-      excerpt: "Children can't learn when they're hungry. Our new nutrition initiative is addressing this fundamental challenge."
     }
   ]);
 
