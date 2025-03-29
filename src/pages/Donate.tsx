@@ -1,13 +1,14 @@
 
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { Heart } from 'lucide-react';
+import { Heart, QrCode, X } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogClose } from '@/components/ui/dialog';
 
 // Initial donors
 const initialDonors = [
-  { id: 1, name: 'Manorama Gupta', amount: '', date: '2023-08-15' },
-  { id: 2, name: 'Rakesh Gupta', amount: '', date: '2023-07-22' },
+  { id: 1, name: 'Manorama Gupta', amount: 'Rs. 5,000', date: '2023-08-15', confirmed: true },
+  { id: 2, name: 'Rakesh Gupta', amount: 'Rs. 2,500', date: '2023-07-22', confirmed: true },
 ];
 
 declare global {
@@ -24,6 +25,8 @@ const Donate: React.FC = () => {
     amount: '',
     message: '',
   });
+  const [showQrCode, setShowQrCode] = useState(false);
+  const [submittedInfo, setSubmittedInfo] = useState(false);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -58,63 +61,42 @@ const Donate: React.FC = () => {
       return;
     }
 
-    // Initialize Razorpay payment
-    const options = {
-      key: 'rzp_test_YourTestKey', // Replace with actual Razorpay test key
-      amount: parseFloat(formData.amount) * 100, // Razorpay amount is in paisa
-      currency: 'INR',
-      name: 'Lakshya NGO',
-      description: 'Donation to support education',
-      image: 'https://i.imgur.com/3g7nmJC.png', // Replace with your logo URL
-      handler: function(response: any) {
-        // Payment successful, add donor to the list
-        const newDonor = {
-          id: donors.length + 1,
-          name: formData.name,
-          amount: `₹${formData.amount}`,
-          date: new Date().toISOString().split('T')[0],
-        };
-        
-        setDonors(prev => [newDonor, ...prev]);
-        
-        // Reset form
-        setFormData({
-          name: '',
-          email: '',
-          amount: '',
-          message: '',
-        });
-        
-        // Show success message
-        toast({
-          title: "Thank you for your donation!",
-          description: `Payment ID: ${response.razorpay_payment_id}`,
-          variant: "default",
-          className: "bg-green-50 border-green-200",
-        });
-      },
-      prefill: {
-        name: formData.name,
-        email: formData.email,
-      },
-      theme: {
-        color: '#F97316',
-      }
-    };
-
-    try {
-      const razorpay = new window.Razorpay(options);
-      razorpay.open();
-    } catch (error) {
-      console.error("Razorpay error:", error);
-      toast({
-        title: "Payment Error",
-        description: "There was an error initializing the payment gateway. Please try again later.",
-        variant: "destructive",
-      });
-    }
+    // Show QR code
+    setShowQrCode(true);
+    setSubmittedInfo(true);
   };
 
+  const handlePaymentComplete = () => {
+    // Simulate payment completion
+    setShowQrCode(false);
+    
+    // Submit information for admin approval
+    const pendingDonation = {
+      id: donors.length + 1,
+      name: formData.name,
+      amount: `Rs. ${Number(formData.amount).toLocaleString()}`,
+      date: new Date().toISOString().split('T')[0],
+      confirmed: false, // Needs admin confirmation
+    };
+    
+    toast({
+      title: "Thank you for your donation!",
+      description: "Your donation information has been submitted and will be displayed after admin confirmation.",
+      className: "bg-green-50 border-green-200",
+    });
+    
+    // Reset form
+    setFormData({
+      name: '',
+      email: '',
+      amount: '',
+      message: '',
+    });
+  };
+
+  // Filter to only show confirmed donors
+  const confirmedDonors = donors.filter(donor => donor.confirmed);
+  
   return (
     <div className="bg-gray-50 min-h-screen">
       {/* Hero Section */}
@@ -142,7 +124,7 @@ const Donate: React.FC = () => {
             <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
               <div className="p-6">
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                  {donors.map((donor) => (
+                  {confirmedDonors.map((donor) => (
                     <div key={donor.id} className="bg-gray-50 p-4 rounded-lg transform hover:scale-105 transition-transform duration-300">
                       <div className="flex items-center">
                         <div className="w-10 h-10 rounded-full bg-lakshya-light-orange flex items-center justify-center text-lakshya-orange">
@@ -235,8 +217,12 @@ const Donate: React.FC = () => {
                   </div>
                   
                   <div className="text-center">
-                    <Button type="submit" className="bg-lakshya-orange hover:bg-orange-600 text-white px-8 py-2 transform hover:scale-105 transition-all duration-300">
-                      Donate Now
+                    <Button 
+                      type="submit" 
+                      className="bg-lakshya-orange hover:bg-orange-600 text-white px-8 py-2 transform hover:scale-105 transition-all duration-300"
+                      disabled={submittedInfo}
+                    >
+                      {submittedInfo ? "Form Submitted" : "Donate Now"}
                     </Button>
                   </div>
                 </div>
@@ -252,6 +238,45 @@ const Donate: React.FC = () => {
           </div>
         </div>
       </section>
+
+      {/* QR Code Dialog */}
+      <Dialog open={showQrCode} onOpenChange={setShowQrCode}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle className="text-xl font-bold text-center">Scan to Donate</DialogTitle>
+            <DialogDescription className="text-center">
+              Scan this QR code with your UPI app to donate ₹{formData.amount}
+            </DialogDescription>
+          </DialogHeader>
+          
+          <div className="flex justify-center my-4">
+            <div className="p-4 bg-white rounded-lg border-2 border-lakshya-orange">
+              <QrCode size={200} className="text-gray-900" />
+            </div>
+          </div>
+          
+          <div className="text-center mb-4">
+            <p className="font-medium text-gray-700">Amount: ₹{formData.amount}</p>
+            <p className="text-sm text-gray-500">Recipient: Lakshya NGO</p>
+          </div>
+          
+          <div className="flex justify-center gap-4">
+            <Button 
+              variant="outline" 
+              onClick={() => setShowQrCode(false)}
+              className="border-red-500 text-red-500 hover:bg-red-50"
+            >
+              <X className="mr-1" size={16} /> Cancel
+            </Button>
+            <Button 
+              onClick={handlePaymentComplete}
+              className="bg-green-600 hover:bg-green-700"
+            >
+              I've Completed Payment
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
