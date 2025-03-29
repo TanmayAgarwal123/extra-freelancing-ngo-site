@@ -1,14 +1,13 @@
 
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { Heart, QrCode } from 'lucide-react';
+import { Heart } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 
-// Initial donors (would be fetched from backend in a real app)
+// Initial donors
 const initialDonors = [
-  { id: 1, name: 'Manorama Gupta', amount: '₹5,000', date: '2023-08-15' },
-  { id: 2, name: 'Rakesh Gupta', amount: '₹3,000', date: '2023-07-22' },
+  { id: 1, name: 'Manorama Gupta', amount: '', date: '2023-08-15' },
+  { id: 2, name: 'Rakesh Gupta', amount: '', date: '2023-07-22' },
 ];
 
 declare global {
@@ -25,8 +24,6 @@ const Donate: React.FC = () => {
     amount: '',
     message: '',
   });
-  const [showQrCode, setShowQrCode] = useState(false);
-  const [adminConfirmed, setAdminConfirmed] = useState(false);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -61,48 +58,61 @@ const Donate: React.FC = () => {
       return;
     }
 
-    // Show QR code for payment
-    setShowQrCode(true);
-  };
-
-  // This would be an admin function in a real app
-  const simulateAdminConfirmation = () => {
-    // In a real app, this would be an API call to verify the payment
-    setAdminConfirmed(true);
-    
-    // Add donor to the list (in a real app, this would happen after admin verification)
-    const newDonor = {
-      id: donors.length + 1,
-      name: formData.name,
-      amount: `₹${formData.amount}`,
-      date: new Date().toISOString().split('T')[0],
+    // Initialize Razorpay payment
+    const options = {
+      key: 'rzp_test_YourTestKey', // Replace with actual Razorpay test key
+      amount: parseFloat(formData.amount) * 100, // Razorpay amount is in paisa
+      currency: 'INR',
+      name: 'Lakshya NGO',
+      description: 'Donation to support education',
+      image: 'https://i.imgur.com/3g7nmJC.png', // Replace with your logo URL
+      handler: function(response: any) {
+        // Payment successful, add donor to the list
+        const newDonor = {
+          id: donors.length + 1,
+          name: formData.name,
+          amount: `₹${formData.amount}`,
+          date: new Date().toISOString().split('T')[0],
+        };
+        
+        setDonors(prev => [newDonor, ...prev]);
+        
+        // Reset form
+        setFormData({
+          name: '',
+          email: '',
+          amount: '',
+          message: '',
+        });
+        
+        // Show success message
+        toast({
+          title: "Thank you for your donation!",
+          description: `Payment ID: ${response.razorpay_payment_id}`,
+          variant: "default",
+          className: "bg-green-50 border-green-200",
+        });
+      },
+      prefill: {
+        name: formData.name,
+        email: formData.email,
+      },
+      theme: {
+        color: '#F97316',
+      }
     };
-    
-    setDonors(prev => [newDonor, ...prev]);
-    
-    // Reset form
-    setFormData({
-      name: '',
-      email: '',
-      amount: '',
-      message: '',
-    });
-    
-    // Close QR dialog
-    setShowQrCode(false);
-    
-    // Show success message
-    toast({
-      title: "Thank you for your donation!",
-      description: "Your contribution has been received and verified by an admin.",
-      variant: "default",
-      className: "bg-green-50 border-green-200",
-    });
-  };
 
-  // Close QR code dialog
-  const handleCloseQrDialog = () => {
-    setShowQrCode(false);
+    try {
+      const razorpay = new window.Razorpay(options);
+      razorpay.open();
+    } catch (error) {
+      console.error("Razorpay error:", error);
+      toast({
+        title: "Payment Error",
+        description: "There was an error initializing the payment gateway. Please try again later.",
+        variant: "destructive",
+      });
+    }
   };
 
   return (
@@ -242,40 +252,6 @@ const Donate: React.FC = () => {
           </div>
         </div>
       </section>
-
-      {/* QR Code Dialog */}
-      <Dialog open={showQrCode} onOpenChange={setShowQrCode}>
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle>Scan QR Code to Complete Donation</DialogTitle>
-            <DialogDescription>
-              Please scan this QR code with your UPI app or any payment app to complete your donation of ₹{formData.amount}.
-            </DialogDescription>
-          </DialogHeader>
-          <div className="flex flex-col items-center justify-center p-6">
-            <div className="border-4 border-lakshya-orange p-3 rounded-lg mb-4">
-              <QrCode size={200} className="text-lakshya-blue" />
-            </div>
-            <p className="text-center text-sm text-gray-500 mb-4">
-              After making the payment, our admin will verify and add your name to our donors list.
-            </p>
-            {/* This button is just for demo purposes - in a real app, this would be an admin function */}
-            <Button 
-              onClick={simulateAdminConfirmation} 
-              className="bg-green-600 hover:bg-green-700 text-white"
-            >
-              Simulate Admin Confirmation
-            </Button>
-            <Button 
-              onClick={handleCloseQrDialog} 
-              variant="outline" 
-              className="mt-2"
-            >
-              Cancel
-            </Button>
-          </div>
-        </DialogContent>
-      </Dialog>
     </div>
   );
 };

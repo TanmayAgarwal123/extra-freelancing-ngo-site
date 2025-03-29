@@ -15,22 +15,22 @@ const Footer = () => {
   const [blogPosts, setBlogPosts] = useState<BlogPost[]>([
     {
       id: 1,
-      title: "Celebrating Children's Day with Our Students",
-      date: "November 15, 2023",
+      title: "Transforming Education in Rural Areas",
+      date: "March 15, 2023",
       likes: 42,
       liked: false
     },
     {
       id: 2,
-      title: "New Computer Lab Inauguration at Lakshya",
-      date: "August 7, 2023",
+      title: "The Impact of After-School Programs",
+      date: "August 7, 2024",
       likes: 38,
       liked: false
     },
     {
       id: 3,
-      title: "Annual Results: 95% Pass Rate This Year",
-      date: "April 22, 2023",
+      title: "Creating Safe Learning Environments",
+      date: "January 22, 2025",
       likes: 27,
       liked: false
     }
