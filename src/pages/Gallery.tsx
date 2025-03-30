@@ -1,8 +1,9 @@
+
 import React from 'react';
 import YouTubeEmbed from '@/components/YouTubeEmbed';
 import { ImageIcon, Users } from 'lucide-react';
 
-// Gallery images with local paths and actual image files
+// Gallery images with correct image paths
 const images = [
   { 
     id: 1, 
