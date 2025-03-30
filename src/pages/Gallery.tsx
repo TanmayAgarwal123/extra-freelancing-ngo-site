@@ -1,11 +1,8 @@
-
 import React from 'react';
 import YouTubeEmbed from '@/components/YouTubeEmbed';
 import { ImageIcon, Users } from 'lucide-react';
 
-// Gallery images with local paths
-// You will need to place your .jpg files in the src/assets/gallery folder
-// with filenames like image1.jpg, image2.jpg, etc.
+// Gallery images with local paths and actual image files
 const images = [
   { 
     id: 1, 
@@ -55,6 +52,24 @@ const images = [
     alt: 'Parent-teacher meeting',
     caption: 'Parents and teachers collaborate for child development' 
   },
+  { 
+    id: 9, 
+    url: '/src/assets/gallery/image9.jpg', 
+    alt: 'Special event celebration',
+    caption: 'Festival celebrations at Lakshya' 
+  },
+  { 
+    id: 10, 
+    url: '/src/assets/gallery/image10.jpg', 
+    alt: 'Educational workshop',
+    caption: 'Interactive learning session' 
+  },
+  { 
+    id: 11, 
+    url: '/src/assets/gallery/image11.jpg', 
+    alt: 'Student achievements',
+    caption: 'Celebrating student accomplishments' 
+  }
 ];
 
 // YouTube videos

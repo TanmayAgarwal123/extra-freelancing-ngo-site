@@ -11,38 +11,68 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 
-// Team member data with local image paths
-// You will need to place your .jpg files in the src/assets/team folder
-// with filenames matching the person's name (e.g., ManoramaGupta.jpg)
+// Updated team member data with correct image paths
 const teamMembers = [
   { 
     name: "Manorama Gupta", 
     designation: "Founder & President",
-    image: "/src/assets/team/ManoramaGupta.jpg" // Local image path
+    image: "/src/assets/team/manorma.jpg"
   },
   { 
     name: "Rakesh Gupta", 
     designation: "Co-Founder & Teacher",
-    image: "/src/assets/team/RakeshGupta.jpg" // Local image path  
+    image: "/src/assets/team/rakesh.jpg" 
   },
   { 
     name: "Sunita Agrawal", 
     designation: "Director Member & Teacher",
-    image: "/src/assets/team/SunitaAgrawal.jpg" // Local image path
+    image: "/src/assets/team/sunita.jpg"
   },
-  { name: "Govind Singh", designation: "Treasurer" },
-  { name: "Ritu Sharma", designation: "Director Member" },
+  { 
+    name: "Govind Singh", 
+    designation: "Treasurer",
+    image: "/src/assets/team/Govind.jpg"
+  },
+  { 
+    name: "Ritu Sharma", 
+    designation: "Director Member",
+    image: "/src/assets/team/ritu.jpg" 
+  },
   { 
     name: "Tanmay Agarwal", 
     designation: "Teacher",
-    image: "/src/assets/team/TanmayAgarwal.jpg" // Local image path
+    image: "/src/assets/team/tanmay.jpg"
   },
-  { name: "Mahek Sharma", designation: "Teacher" },
-  { name: "Rupali Bharawa", designation: "Teacher" },
-  { name: "Shree Bharat Narayan Jha", designation: "Teacher" },
-  { name: "Madhuri Jha", designation: "Teacher" },
-  { name: "Ramnarayan Debnath", designation: "Teacher" },
-  { name: "Bani Debnath", designation: "Teacher" }
+  { 
+    name: "Mahek Sharma", 
+    designation: "Teacher",
+    image: "/src/assets/team/mahek.jpg"
+  },
+  { 
+    name: "Rupali Bharawa", 
+    designation: "Teacher",
+    image: "/src/assets/team/rupali_bharava.jpg"
+  },
+  { 
+    name: "Shree Bharat Narayan Jha", 
+    designation: "Teacher",
+    image: "/src/assets/team/Bharat.jpg"
+  },
+  { 
+    name: "Madhuri Jha", 
+    designation: "Teacher",
+    image: "/src/assets/team/Madhuri.jpg"
+  },
+  { 
+    name: "Ramnarayan Debnath", 
+    designation: "Teacher",
+    image: "/src/assets/team/Ramnarayan.jpg"
+  },
+  { 
+    name: "Bani Debnath", 
+    designation: "Teacher",
+    image: "/src/assets/team/bani.jpg"
+  }
 ];
 
 const TeamSection: React.FC = () => {

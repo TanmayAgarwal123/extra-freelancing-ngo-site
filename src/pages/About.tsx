@@ -3,38 +3,70 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import TeamMember from '@/components/TeamMember';
-import { Users } from 'lucide-react';
+import { Users, ImageIcon } from 'lucide-react';
 
-// Team member data with images - matching the ones from TeamSection
+// Team member data updated with correct image paths
 const teamMembers = [
   { 
     name: "Manorama Gupta", 
     designation: "Founder & President",
-    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=300&auto=format&fit=crop"
+    image: "/src/assets/team/manorma.jpg"
   },
   { 
     name: "Rakesh Gupta", 
     designation: "Co-Founder & Teacher",
-    image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=300&auto=format&fit=crop"
+    image: "/src/assets/team/rakesh.jpg" 
   },
   { 
     name: "Sunita Agrawal", 
     designation: "Director Member & Teacher",
-    image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=300&auto=format&fit=crop"
+    image: "/src/assets/team/sunita.jpg"
   },
-  { name: "Govind Singh", designation: "Treasurer" },
-  { name: "Ritu Sharma", designation: "Director Member" },
+  { 
+    name: "Govind Singh", 
+    designation: "Treasurer",
+    image: "/src/assets/team/Govind.jpg"
+  },
+  { 
+    name: "Ritu Sharma", 
+    designation: "Director Member",
+    image: "/src/assets/team/ritu.jpg" 
+  },
   { 
     name: "Tanmay Agarwal", 
     designation: "Teacher",
-    image: 
+    image: "/src/assets/team/tanmay.jpg"
   },
-  { name: "Mahek Sharma", designation: "Teacher" },
-  { name: "Rupali Bharawa", designation: "Teacher" },
-  { name: "Shree Bharat Narayan Jha", designation: "Teacher" },
-  { name: "Madhuri Jha", designation: "Teacher" },
-  { name: "Ramnarayan Debnath", designation: "Teacher" },
-  { name: "Bani Debnath", designation: "Teacher" }
+  { 
+    name: "Mahek Sharma", 
+    designation: "Teacher",
+    image: "/src/assets/team/mahek.jpg"
+  },
+  { 
+    name: "Rupali Bharawa", 
+    designation: "Teacher",
+    image: "/src/assets/team/rupali_bharava.jpg"
+  },
+  { 
+    name: "Shree Bharat Narayan Jha", 
+    designation: "Teacher",
+    image: "/src/assets/team/Bharat.jpg"
+  },
+  { 
+    name: "Madhuri Jha", 
+    designation: "Teacher",
+    image: "/src/assets/team/Madhuri.jpg"
+  },
+  { 
+    name: "Ramnarayan Debnath", 
+    designation: "Teacher",
+    image: "/src/assets/team/Ramnarayan.jpg"
+  },
+  { 
+    name: "Bani Debnath", 
+    designation: "Teacher",
+    image: "/src/assets/team/bani.jpg"
+  }
 ];
 
 const About: React.FC = () => {
