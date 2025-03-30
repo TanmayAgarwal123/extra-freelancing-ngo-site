@@ -3,53 +3,55 @@ import React from 'react';
 import YouTubeEmbed from '@/components/YouTubeEmbed';
 import { ImageIcon, Users } from 'lucide-react';
 
-// Gallery images with proper descriptions
+// Gallery images with local paths
+// You will need to place your .jpg files in the src/assets/gallery folder
+// with filenames like image1.jpg, image2.jpg, etc.
 const images = [
   { 
     id: 1, 
-    url: 'https://images.unsplash.com/photo-1511949860663-92c5c57d48a7?q=80&w=600&auto=format&fit=crop', 
+    url: '/src/assets/gallery/image1.jpg', 
     alt: 'Children studying in a classroom',
     caption: 'Computer education session at our center' 
   },
   { 
     id: 2, 
-    url: 'https://images.unsplash.com/photo-1594608661623-aa0bd3a69799?q=80&w=600&auto=format&fit=crop', 
+    url: '/src/assets/gallery/image2.jpg', 
     alt: 'Group of students in discussion',
     caption: 'Group learning activities promote teamwork' 
   },
   { 
     id: 3, 
-    url: 'https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=600&auto=format&fit=crop', 
+    url: '/src/assets/gallery/image3.jpg', 
     alt: 'Annual celebration event',
     caption: 'Annual cultural performance by our students' 
   },
   { 
     id: 4, 
-    url: 'https://images.unsplash.com/photo-1522661067900-ab829854a57f?q=80&w=600&auto=format&fit=crop', 
+    url: '/src/assets/gallery/image4.jpg', 
     alt: 'Educational art project',
     caption: 'Art and craft workshop for creative expression' 
   },
   { 
     id: 5, 
-    url: 'https://images.unsplash.com/photo-1610484826967-09c5720778c7?q=80&w=600&auto=format&fit=crop', 
+    url: '/src/assets/gallery/image5.jpg', 
     alt: 'Outdoor learning activities',
     caption: 'Environmental education field trip' 
   },
   { 
     id: 6, 
-    url: 'https://images.unsplash.com/photo-1571624436279-b272aff752b5?q=80&w=600&auto=format&fit=crop', 
+    url: '/src/assets/gallery/image6.jpg', 
     alt: 'Teachers training session',
     caption: 'Teacher development workshop' 
   },
   { 
     id: 7, 
-    url: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=600&auto=format&fit=crop', 
+    url: '/src/assets/gallery/image7.jpg', 
     alt: 'Community outreach program',
     caption: 'Healthcare awareness camp in the community' 
   },
   { 
     id: 8, 
-    url: 'https://images.unsplash.com/photo-1518133910546-b6c2fb7d79e3?q=80&w=600&auto=format&fit=crop', 
+    url: '/src/assets/gallery/image8.jpg', 
     alt: 'Parent-teacher meeting',
     caption: 'Parents and teachers collaborate for child development' 
   },
