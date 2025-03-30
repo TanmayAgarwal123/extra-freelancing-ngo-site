@@ -1,7 +1,7 @@
 
 import React from 'react';
 import YouTubeEmbed from '@/components/YouTubeEmbed';
-import { Gallery as GalleryIcon, Users } from 'lucide-react';
+import { ImageIcon, Users } from 'lucide-react';
 
 // Gallery images with proper descriptions
 const images = [
@@ -81,7 +81,7 @@ const Gallery: React.FC = () => {
       <section className="py-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold mb-8 font-serif text-gray-800 text-center flex items-center justify-center gap-2">
-            <GalleryIcon className="h-8 w-8 text-lakshya-orange" />
+            <ImageIcon className="h-8 w-8 text-lakshya-orange" />
             <span>Photo Gallery</span>
           </h2>
           
