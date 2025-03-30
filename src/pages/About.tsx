@@ -3,15 +3,32 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import TeamMember from '@/components/TeamMember';
+import { Users } from 'lucide-react';
 
-// Team member data
+// Team member data with images - matching the ones from TeamSection
 const teamMembers = [
-  { name: "Manorama Gupta", designation: "Founder & President" },
-  { name: "Rakesh Gupta", designation: "Co-Founder & Teacher" },
-  { name: "Sunita Agrawal", designation: "Director Member & Teacher" },
+  { 
+    name: "Manorama Gupta", 
+    designation: "Founder & President",
+    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=300&auto=format&fit=crop"
+  },
+  { 
+    name: "Rakesh Gupta", 
+    designation: "Co-Founder & Teacher",
+    image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=300&auto=format&fit=crop"
+  },
+  { 
+    name: "Sunita Agrawal", 
+    designation: "Director Member & Teacher",
+    image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=300&auto=format&fit=crop"
+  },
   { name: "Govind Singh", designation: "Treasurer" },
   { name: "Ritu Sharma", designation: "Director Member" },
-  { name: "Tanmay Agarwal", designation: "Teacher" },
+  { 
+    name: "Tanmay Agarwal", 
+    designation: "Teacher",
+    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=300&auto=format&fit=crop"
+  },
   { name: "Mahek Sharma", designation: "Teacher" },
   { name: "Rupali Bharawa", designation: "Teacher" },
   { name: "Shree Bharat Narayan Jha", designation: "Teacher" },
@@ -84,7 +101,10 @@ const About: React.FC = () => {
       {/* Team Section */}
       <section className="py-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-center mb-8 font-serif text-gray-800">Our Leadership Team</h2>
+          <h2 className="text-3xl font-bold text-center mb-8 font-serif text-gray-800 flex items-center justify-center gap-2">
+            <Users className="h-8 w-8 text-lakshya-orange" />
+            <span>Our Leadership Team</span>
+          </h2>
           <p className="text-center text-gray-600 max-w-3xl mx-auto mb-12">
             Meet the dedicated individuals who work tirelessly to make our mission a reality.
           </p>
@@ -95,6 +115,7 @@ const About: React.FC = () => {
                 key={index}
                 name={member.name}
                 designation={member.designation}
+                image={member.image}
               />
             ))}
           </div>

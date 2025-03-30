@@ -11,14 +11,30 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 
-// Team member data
+// Team member data with images
 const teamMembers = [
-  { name: "Manorama Gupta", designation: "Founder & President" },
-  { name: "Rakesh Gupta", designation: "Co-Founder & Teacher" },
-  { name: "Sunita Agrawal", designation: "Director Member & Teacher" },
+  { 
+    name: "Manorama Gupta", 
+    designation: "Founder & President",
+    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=300&auto=format&fit=crop"
+  },
+  { 
+    name: "Rakesh Gupta", 
+    designation: "Co-Founder & Teacher",
+    image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=300&auto=format&fit=crop"
+  },
+  { 
+    name: "Sunita Agrawal", 
+    designation: "Director Member & Teacher",
+    image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=300&auto=format&fit=crop"
+  },
   { name: "Govind Singh", designation: "Treasurer" },
   { name: "Ritu Sharma", designation: "Director Member" },
-  { name: "Tanmay Agarwal", designation: "Teacher" },
+  { 
+    name: "Tanmay Agarwal", 
+    designation: "Teacher",
+    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=300&auto=format&fit=crop"
+  },
   { name: "Mahek Sharma", designation: "Teacher" },
   { name: "Rupali Bharawa", designation: "Teacher" },
   { name: "Shree Bharat Narayan Jha", designation: "Teacher" },
@@ -45,6 +61,7 @@ const TeamSection: React.FC = () => {
                   <TeamMember 
                     name={member.name}
                     designation={member.designation}
+                    image={member.image}
                   />
                 </div>
               </CarouselItem>

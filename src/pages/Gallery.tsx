@@ -1,20 +1,64 @@
 
 import React from 'react';
 import YouTubeEmbed from '@/components/YouTubeEmbed';
+import { Gallery as GalleryIcon, Users } from 'lucide-react';
 
-// Placeholder images (would be replaced with real images)
+// Gallery images with proper descriptions
 const images = [
-  { id: 1, url: 'https://images.unsplash.com/photo-1517022812141-23620dba5c23', alt: 'Children playing' },
-  { id: 2, url: 'https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9', alt: 'Nature' },
-  { id: 3, url: 'https://images.unsplash.com/photo-1513836279014-a89f7a76ae86', alt: 'Trees' },
-  { id: 4, url: 'https://images.unsplash.com/photo-1469474968028-56623f02e42e', alt: 'Mountain' },
-  { id: 5, url: 'https://images.unsplash.com/photo-1472396961693-142e6e269027', alt: 'Wildlife' },
-  { id: 6, url: 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05', alt: 'Mountains' },
+  { 
+    id: 1, 
+    url: 'https://images.unsplash.com/photo-1511949860663-92c5c57d48a7?q=80&w=600&auto=format&fit=crop', 
+    alt: 'Children studying in a classroom',
+    caption: 'Computer education session at our center' 
+  },
+  { 
+    id: 2, 
+    url: 'https://images.unsplash.com/photo-1594608661623-aa0bd3a69799?q=80&w=600&auto=format&fit=crop', 
+    alt: 'Group of students in discussion',
+    caption: 'Group learning activities promote teamwork' 
+  },
+  { 
+    id: 3, 
+    url: 'https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=600&auto=format&fit=crop', 
+    alt: 'Annual celebration event',
+    caption: 'Annual cultural performance by our students' 
+  },
+  { 
+    id: 4, 
+    url: 'https://images.unsplash.com/photo-1522661067900-ab829854a57f?q=80&w=600&auto=format&fit=crop', 
+    alt: 'Educational art project',
+    caption: 'Art and craft workshop for creative expression' 
+  },
+  { 
+    id: 5, 
+    url: 'https://images.unsplash.com/photo-1610484826967-09c5720778c7?q=80&w=600&auto=format&fit=crop', 
+    alt: 'Outdoor learning activities',
+    caption: 'Environmental education field trip' 
+  },
+  { 
+    id: 6, 
+    url: 'https://images.unsplash.com/photo-1571624436279-b272aff752b5?q=80&w=600&auto=format&fit=crop', 
+    alt: 'Teachers training session',
+    caption: 'Teacher development workshop' 
+  },
+  { 
+    id: 7, 
+    url: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=600&auto=format&fit=crop', 
+    alt: 'Community outreach program',
+    caption: 'Healthcare awareness camp in the community' 
+  },
+  { 
+    id: 8, 
+    url: 'https://images.unsplash.com/photo-1518133910546-b6c2fb7d79e3?q=80&w=600&auto=format&fit=crop', 
+    alt: 'Parent-teacher meeting',
+    caption: 'Parents and teachers collaborate for child development' 
+  },
 ];
 
 // YouTube videos
 const videos = [
   { id: 1, videoId: 'yrvyifeCtec', title: 'Lakshya NGO Introduction' },
+  { id: 2, videoId: 'LXb3EKWsInQ', title: 'Annual Cultural Program Highlights' },
   // More videos would be added here
 ];
 
@@ -36,7 +80,10 @@ const Gallery: React.FC = () => {
       {/* Photo Gallery */}
       <section className="py-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold mb-8 font-serif text-gray-800 text-center">Photo Gallery</h2>
+          <h2 className="text-3xl font-bold mb-8 font-serif text-gray-800 text-center flex items-center justify-center gap-2">
+            <GalleryIcon className="h-8 w-8 text-lakshya-orange" />
+            <span>Photo Gallery</span>
+          </h2>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             {images.map((image) => (
@@ -46,6 +93,9 @@ const Gallery: React.FC = () => {
                   alt={image.alt} 
                   className="w-full h-64 object-cover"
                 />
+                <div className="p-3 bg-white">
+                  <p className="text-sm text-gray-700">{image.caption}</p>
+                </div>
               </div>
             ))}
           </div>

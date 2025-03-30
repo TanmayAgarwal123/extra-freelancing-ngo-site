@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 
 interface TeamMemberProps {
   name: string;
@@ -53,11 +54,12 @@ const TeamMember: React.FC<TeamMemberProps> = ({ name, designation, quote, image
     <div className="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 hover:shadow-xl transition-all duration-300">
       <div className="p-6">
         {image ? (
-          <img 
-            src={image} 
-            alt={name} 
-            className="w-24 h-24 rounded-full mx-auto mb-4 object-cover border-4 border-gray-200"
-          />
+          <Avatar className="h-24 w-24 mx-auto mb-4">
+            <AvatarImage src={image} alt={name} className="object-cover" />
+            <AvatarFallback className={`bg-gradient-to-r ${randomColor[0]} ${randomColor[1]}`}>
+              {initials}
+            </AvatarFallback>
+          </Avatar>
         ) : (
           <div className={`w-24 h-24 rounded-full mx-auto mb-4 bg-gradient-to-r ${randomColor[0]} flex items-center justify-center ${randomColor[1]} text-xl font-bold animate-pulse`}>
             {initials}
