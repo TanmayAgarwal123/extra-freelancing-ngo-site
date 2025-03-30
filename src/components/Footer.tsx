@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { MapPin, Mail, Phone, Heart } from 'lucide-react';
@@ -16,21 +17,21 @@ const Footer = () => {
   const [blogPosts, setBlogPosts] = useState<BlogPost[]>([
     {
       id: 1,
-      title: "Digital Education Initiative for Rural Schools",
-      date: "June 15, 2023",
+      title: "Computer Lab Upgrade Enhances Digital Education",
+      date: "May 12, 2023",
       likes: 42,
       liked: false,
-      author: "Tanmay Agarwal",
-      excerpt: "Our recent partnership with Tech For Good has enabled us to bring digital tablets to three rural schools."
+      author: "Priya Sharma",
+      excerpt: "Our students now have access to 10 new computers with educational software to help build critical digital literacy skills for the future."
     },
     {
       id: 2,
-      title: "The Impact of Our After-School Programs",
-      date: "August 7, 2023",
+      title: "Annual Summer Camp Celebrates Arts and Culture",
+      date: "July 23, 2023",
       likes: 38,
       liked: false,
-      author: "Tanmay Agarwal",
-      excerpt: "After 2 years of running after-school programs, test scores have improved by 32% among participating students."
+      author: "Rahul Mehra",
+      excerpt: "Over 60 children participated in our 2-week summer camp focused on traditional arts, dance, and environmental awareness activities."
     }
   ]);
 
